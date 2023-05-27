@@ -125,6 +125,7 @@
                     this.scene.start('pause');
                 });
                 this.back.setFlipX(true);
+                this.back.setScale(.8);
 
                 this.audioon = this.add.image(260, 250, 'audioon')
                 .setInteractive()
@@ -164,7 +165,34 @@
                     } //style
                 );
 
-                this.resume = this.add.image(390, 260, 'resume')
+                //this.resume = this.add.image(390, 260, 'resume')
+                //.setInteractive()
+                //.on('pointerdown', () => {
+                //    this.scene.start(previousScene);
+                //});
+                //this.resume.setScale(.8)
+//
+                ////////////////////add audio scene///////////////////
+                //this.settings = this.add.image(330, 170, 'settings')
+                //.setInteractive()
+                //.on('pointerdown', () => {
+                //    this.scene.start('settings');
+                //});
+//
+                //this.quit = this.add.image(250, 260, 'quit')
+                //.setInteractive()
+                //.on('pointerdown', () => {
+                //    this.scene.start('title');
+                //});
+                //this.quit.setScale(.8)
+//
+                //this.mapbut = this.add.image(300, 350, 'mapbut')
+                //.setInteractive()
+                //.on('pointerdown', () => {
+                //    this.scene.start('map');
+                //});
+                //this.quit.setScale(.8)
+                this.resume = this.add.image(600, 40, 'resume')
                 .setInteractive()
                 .on('pointerdown', () => {
                     this.scene.start(previousScene);
@@ -172,20 +200,20 @@
                 this.resume.setScale(.8)
 
                 //////////////////add audio scene///////////////////
-                this.settings = this.add.image(330, 170, 'settings')
+                this.settings = this.add.image(320, 170, 'settings')
                 .setInteractive()
                 .on('pointerdown', () => {
                     this.scene.start('settings');
                 });
 
-                this.quit = this.add.image(250, 260, 'quit')
+                this.quit = this.add.image(320, 260, 'quit')
                 .setInteractive()
                 .on('pointerdown', () => {
                     this.scene.start('title');
                 });
                 this.quit.setScale(.8)
 
-                this.mapbut = this.add.image(300, 350, 'mapbut')
+                this.mapbut = this.add.image(320, 350, 'mapbut')
                 .setInteractive()
                 .on('pointerdown', () => {
                     this.scene.start('map');
@@ -303,7 +331,7 @@
             width: 640,
             height: 480,
             //backgroundColor: 0x2a5825,
-            scene: [Title, Map, Pause, Settings, Level1, Level2, Level3],
+            scene: [Settings] //[Title, Map, Pause, Settings, Level1, Level2, Level3],
         });
     </script>
 </body>
