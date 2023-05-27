@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scene Flow proto</title>
+    <script src="phaser.js"></script>
+</head>
+
+<body>
+    <script>
+
+        class Title extends Phaser.Scene {
+            constructor() {
+                super('title');
+            }
+            preload() {
+                this.load.path = "./assets/";
+                this.load.image('title', 'title.png');
+            }
+            create() {
+                this.cameras.main.setBackgroundColor('#FFC0CB');
+
+                this.scenenum = this.add.text(50, 50, "title")
+
+                this.title = this.add.image(300, 200, 'title');
+
+                const playText = this.add.text(350, 400, 'PLAY', { fontSize: '40px', fill: '#fff' });
+                //playText.setDepth(1);
+                playText.setInteractive();
+                playText.on('pointerover', () => {
+                    playText.setStyle({ fill: '#ff0' });
+                });
+                playText.on('pointerout', () => {
+                    playText.setStyle({ fill: '#fff' });
+                });
+                playText.on('pointerdown', () => {
+                    this.scene.start('map');
+                });
+
+                // const space = this.add.image(200, 0, 'space');
+                // //space.scale(.5);
+                // space.setOrigin(0);
+                // space.setDepth(0);
+
+                // this.imageObject.background = this.back;
+            }
+        }
+
+        class Map extends Phaser.Scene {
+            constructor() {
+                super('map');
+            }
+            preload() {
+                this.load.path = "./assets/";
+                this.load.image('lev1', 'lev1.png')
+                this.load.image('lev2', 'lev2.png')
+                this.load.image('lev3', 'lev3.png')
+            }
+            create() {
+                previousScene = this.scene.key;
+
+                this.cameras.main.setBackgroundColor('#000000');
+                this.textObject0 = this.add.text(
+                    50, //x
+                    50,//y
+                    "map", //text
+                    {
+                        font: "20px Impact",
+                        color: "#FFFFFF",
+                        align: "center"
+                    } //style
+                );
+
+                this.lev1 = this.add.image(100, 250, 'lev1')
+                .setInteractive()
+                .on('pointerdown', () => {
+                    this.scene.start('level1')
+                });
+
+                //this.lev1.input.on('pointerdown', () => this.scene.start('level2'));
+                this.lev2 = this.add.image(300, 250, 'lev2')
+                .setInteractive()
+                .on('pointerdown', () => {
+                    this.scene.start('level2')
+                });
+
+                this.lev3 = this.add.image(500, 250, 'lev3')
+                .setInteractive()
+                .on('pointerdown', () => {
+                    this.scene.start('level3')
+                });
+            }
+        }
+
+        
+        class Settings extends Phaser.Scene {
+            constructor() {
+                super('settings');
+            }
+            preload() {
+                this.load.path = "./assets/";
+                this.load.image('resume', 'resume.png');
+                this.load.image('audioon', 'audio_on.png');
+                this.load.image('audiooff', 'audio_off.png');
+            }
+            create() {
+                this.cameras.main.setBackgroundColor('#000000');
+                this.textObject0 = this.add.text(
+                    500, //x
+                    50,//y
+                    "settings", //text
+                    {
+                        font: "20px Impact",
+                        color: "#FFFFFF",
+                        align: "center"
+                    } //style
+                );
+
+                this.back = this.add.image(50, 50, 'resume')
+                .setInteractive()
+                .on('pointerdown', () => {
+                    this.scene.start('pause');
+                });
+                this.back.setFlipX(true);
+
+                this.audioon = this.add.image(260, 250, 'audioon')
+                .setInteractive()
+                .on('pointerdown', () => {
+                    /////////////////music on/////////////////
+                });
+
+                this.audiooff = this.add.image(370, 250, 'audiooff')
+                .setInteractive()
+                .on('pointerdown', () => {
+                    ////////////////music off///////////////
+                });
+            }
+        }
+
+        class Pause extends Phaser.Scene {
+            constructor() {
+                super('pause');
+            }
+            preload() {
+                this.load.path = "./assets/";
+                this.load.image('resume', 'resume.png');
+                this.load.image('settings', 'settings.png');
+                this.load.image('quit', 'quit.png');
+                this.load.image('mapbut', 'mapbut.png');
+            }
+            create() {
+                this.cameras.main.setBackgroundColor('#000000');
+                this.textObject0 = this.add.text(
+                    50, //x
+                    50,//y
+                    "pause", //text
+                    {
+                        font: "20px Impact",
+                        color: "#FFFFFF",
+                        align: "center"
+                    } //style
+                );
+
+                this.resume = this.add.image(390, 260, 'resume')
+                .setInteractive()
+                .on('pointerdown', () => {
+                    this.scene.start(previousScene);
+                });
+                this.resume.setScale(.8)
+
+                //////////////////add audio scene///////////////////
+                this.settings = this.add.image(330, 170, 'settings')
+                .setInteractive()
+                .on('pointerdown', () => {
+                    this.scene.start('settings');
+                });
+
+                this.quit = this.add.image(250, 260, 'quit')
+                .setInteractive()
+                .on('pointerdown', () => {
+                    this.scene.start('title');
+                });
+                this.quit.setScale(.8)
+
+                this.mapbut = this.add.image(300, 350, 'mapbut')
+                .setInteractive()
+                .on('pointerdown', () => {
+                    this.scene.start('map');
+                });
+                this.quit.setScale(.8)
+            }
+        }
+
+        class Level1 extends Phaser.Scene {
+            constructor() {
+                super('level1');
+            }
+            preload() {
+                this.load.path = "./assets/";
+                this.load.image('pause', 'pause.png');
+            }
+            create() {
+                previousScene = this.scene.key;
+
+                this.cameras.main.setBackgroundColor('#000000');
+
+                this.pause = this.add.image(570, 50, 'pause')
+                .setInteractive()
+                .on('pointerdown', () => {
+                    this.scene.start('pause')
+                });
+                this.pause.setScale(.5);
+
+
+                this.textObject0 = this.add.text(
+                    100, //x
+                    250,//y
+                    "level1", //text
+                    {
+                        font: "50px Impact",
+                        color: "#FFFFFF",
+                        align: "center"
+                    } //style
+                );
+            }
+        }
+
+        class Level2 extends Phaser.Scene {
+            constructor() {
+                super('level2');
+            }
+            preload() {
+                this.load.path = "./assets/";
+                this.load.image('pause', 'pause.png');
+            }
+            create() {
+                this.pause = this.add.image(570, 50, 'pause')
+                .setInteractive()
+                .on('pointerdown', () => {
+                    this.scene.start('pause')
+                });
+                this.pause.setScale(.5);
+
+                previousScene = this.scene.key;
+
+                this.cameras.main.setBackgroundColor('#000000');
+                this.textObject0 = this.add.text(
+                    100, //x
+                    250,//y
+                    "Level2", //text
+                    {
+                        font: "50px Impact",
+                        color: "#FFFFFF",
+                        align: "center"
+                    } //style
+                );
+            }
+
+            //this.input.on('pointerdown', () => this.scene.start('messagecard'));
+        }
+
+        class Level3 extends Phaser.Scene {
+            constructor() {
+                super('level3');
+            }
+            preload() {
+                this.load.path = "./assets/";
+                this.load.image('pause', 'pause.png');
+            }
+            create() {
+                this.pause = this.add.image(570, 50, 'pause')
+                .setInteractive()
+                .on('pointerdown', () => {
+                    this.scene.start('pause')
+                });
+                this.pause.setScale(.5);
+
+
+                previousScene = this.scene.key;
+
+                this.cameras.main.setBackgroundColor('#000000');
+                this.textObject0 = this.add.text(
+                    100, //x
+                    250,//y
+                    "Level3", //text
+                    {
+                        font: "50px Impact",
+                        color: "#FFFFFF",
+                        align: "center"
+                    } //style
+                );
+            }
+
+        }
+
+        var previousScene;
+
+        new Phaser.Game({
+            type: Phaser.AUTO,
+            width: 640,
+            height: 480,
+            //backgroundColor: 0x2a5825,
+            scene: [Title, Map, Pause, Settings, Level1, Level2, Level3],
+        });
+    </script>
+</body>
+
+</html>
