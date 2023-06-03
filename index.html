@@ -11,6 +11,133 @@
 
 <body>
     <script>
+        class Logoscene extends Phaser.Scene {
+            constructor() {
+                super('logoscene');
+            }
+            preload() {
+                this.load.path = "./assets/";
+                this.load.image('logo', 'doctime_logo.png')
+            }
+            create() {
+                cursors = this.input.keyboard.createCursorKeys();
+                // set up Scene switcher
+                this.input.keyboard.on('keydown', (event) => {
+                    //console.log(event);
+                    switch (event.key) {
+                        case '0':
+                            this.scene.start('logoscene');
+                            break;
+                        case '1':
+                            this.scene.start('cred');
+                            break;
+                        case '2':
+                            this.scene.start('title');
+                            break;
+                        case '3':
+                            this.scene.start('map');
+                            break;
+                        case '4':
+                            this.scene.start('settings');
+                            break;
+                        case '5':
+                            this.scene.start('pause');
+                            break;
+                        case '6':
+                            this.scene.start('level1');
+                            break;
+                        case '7':
+                            this.scene.start('level2');
+                            break;
+                        case '8':
+                            this.scene.start('level3');
+                            break;
+                        default:
+                            break;
+                    }
+                });
+                const centerX = this.cameras.main.width / 2;
+                const centerY = this.cameras.main.height / 2;
+                this.add.image(centerX, centerY, 'logo').setScale(2);
+                this.input.on('pointerdown', () => this.scene.start('title'));
+                this.cameras.main.fadeIn(5000);
+                this.time.addEvent({
+                    delay: 5000,
+                    loop: false,
+                    callback: () => {
+                        this.scene.start("title")
+                    }
+                })
+            }
+            update() {
+            }
+        }
+
+        class Cred extends Phaser.Scene {
+            constructor() {
+                super('cred');
+            }
+            preload() {
+
+            }
+            create() {
+                cursors = this.input.keyboard.createCursorKeys();
+                // set up Scene switcher
+                this.input.keyboard.on('keydown', (event) => {
+                    //console.log(event);
+                    switch (event.key) {
+                        case '0':
+                            this.scene.start('logoscene');
+                            break;
+                        case '1':
+                            this.scene.start('cred');
+                            break;
+                        case '2':
+                            this.scene.start('title');
+                            break;
+                        case '3':
+                            this.scene.start('map');
+                            break;
+                        case '4':
+                            this.scene.start('settings');
+                            break;
+                        case '5':
+                            this.scene.start('pause');
+                            break;
+                        case '6':
+                            this.scene.start('level1');
+                            break;
+                        case '7':
+                            this.scene.start('level2');
+                            break;
+                        case '8':
+                            this.scene.start('level3');
+                            break;
+                        default:
+                            break;
+                    }
+                });
+                const centerX = this.cameras.main.width / 2;
+                const centerY = this.cameras.main.height / 2;
+
+                this.add.text(centerX - 250, centerY- 100, "Brayden Smith - Art Creator, Programmer\n\nAly Cerutti - Tech Lead, Programmer\n\nAaron Lee - Lead Programmer\n\nAkash Basu - Programmer, Testing Lead\n\nConnor Green - Music Dev, Production Lead").setFontSize(20);
+
+                const titletext = this.add.text(130, 400, 'BACK TO TITLE', { fontSize: '40px', fill: '#fff' });
+                //playText.setDepth(1);
+                titletext.setInteractive();
+                titletext.on('pointerover', () => {
+                    titletext.setStyle({ fill: '#ff0' });
+                });
+                titletext.on('pointerout', () => {
+                    titletext.setStyle({ fill: '#fff' });
+                });
+                titletext.on('pointerdown', () => {
+                    this.scene.start('title');
+                });
+            }
+            update() {
+            }
+        }
 
         class Title extends Phaser.Scene {
             constructor() {
@@ -21,13 +148,53 @@
                 this.load.image('title', 'title.png');
             }
             create() {
+                this.cameras.main.fadeIn(1000);
+                // set up Phaser-provided cursor key input
+                cursors = this.input.keyboard.createCursorKeys();
+
+                // set up Scene switcher
+                this.input.keyboard.on('keydown', (event) => {
+                    //console.log(event);
+                    switch (event.key) {
+                        case '0':
+                            this.scene.start('logoscene');
+                            break;
+                        case '1':
+                            this.scene.start('cred');
+                            break;
+                        case '2':
+                            this.scene.start('title');
+                            break;
+                        case '3':
+                            this.scene.start('map');
+                            break;
+                        case '4':
+                            this.scene.start('settings');
+                            break;
+                        case '5':
+                            this.scene.start('pause');
+                            break;
+                        case '6':
+                            this.scene.start('level1');
+                            break;
+                        case '7':
+                            this.scene.start('level2');
+                            break;
+                        case '8':
+                            this.scene.start('level3');
+                            break;
+                        default:
+                            break;
+                    }
+                });
+
                 this.cameras.main.setBackgroundColor('#1D4625');
 
                 this.scenenum = this.add.text(50, 50, "title")
 
                 this.title = this.add.image(300, 200, 'title');
 
-                const playText = this.add.text(350, 400, 'PLAY', { fontSize: '40px', fill: '#fff' });
+                const playText = this.add.text(370, 400, 'PLAY', { fontSize: '40px', fill: '#fff' });
                 //playText.setDepth(1);
                 playText.setInteractive();
                 playText.on('pointerover', () => {
@@ -37,7 +204,20 @@
                     playText.setStyle({ fill: '#fff' });
                 });
                 playText.on('pointerdown', () => {
-                    this.scene.start('map');
+                    this.scene.start('map1');
+                });
+
+                const credText = this.add.text(130, 400, 'CREDITS', { fontSize: '40px', fill: '#fff' });
+                //playText.setDepth(1);
+                credText.setInteractive();
+                credText.on('pointerover', () => {
+                    credText.setStyle({ fill: '#ff0' });
+                });
+                credText.on('pointerout', () => {
+                    credText.setStyle({ fill: '#fff' });
+                });
+                credText.on('pointerdown', () => {
+                    this.scene.start('cred');
                 });
 
                 // const space = this.add.image(200, 0, 'space');
@@ -49,9 +229,9 @@
             }
         }
 
-        class Map extends Phaser.Scene {
+        class Map1 extends Phaser.Scene {
             constructor() {
-                super('map');
+                super('map1');
             }
             preload() {
                 this.load.path = "./assets/";
@@ -60,6 +240,46 @@
                 this.load.image('lev3', 'lev3.png')
             }
             create() {
+                this.cameras.main.fadeIn(3000);
+                // set up Phaser-provided cursor key input
+                cursors = this.input.keyboard.createCursorKeys();
+
+                // set up Scene switcher
+                this.input.keyboard.on('keydown', (event) => {
+                    //console.log(event);
+                    switch (event.key) {
+                        case '0':
+                            this.scene.start('logoscene');
+                            break;
+                        case '1':
+                            this.scene.start('cred');
+                            break;
+                        case '2':
+                            this.scene.start('title');
+                            break;
+                        case '3':
+                            this.scene.start('map');
+                            break;
+                        case '4':
+                            this.scene.start('settings');
+                            break;
+                        case '5':
+                            this.scene.start('pause');
+                            break;
+                        case '6':
+                            this.scene.start('level1');
+                            break;
+                        case '7':
+                            this.scene.start('level2');
+                            break;
+                        case '8':
+                            this.scene.start('level3');
+                            break;
+                        default:
+                            break;
+                    }
+                });
+
                 previousScene = this.scene.key;
 
                 this.cameras.main.setBackgroundColor('#536872');
@@ -75,27 +295,202 @@
                 );
 
                 this.lev1 = this.add.image(100, 250, 'lev1')
-                .setInteractive()
-                .on('pointerdown', () => {
-                    this.scene.start('level1')
-                });
+                    .setInteractive()
+                    .on('pointerover', () => this.lev1.setAlpha(0.4))
+                    .on('pointerout', () => this.lev1.setAlpha(1))
+                    .on('pointerdown', () => {
+                        this.scene.start('level1')
+                    });
 
                 //this.lev1.input.on('pointerdown', () => this.scene.start('level2'));
-                this.lev2 = this.add.image(300, 250, 'lev2')
-                .setInteractive()
-                .on('pointerdown', () => {
-                    this.scene.start('level2')
-                });
+                this.lev2 = this.add.image(300, 250, 'lev2');
+                this.lev2.setTint(0xff0000);
 
-                this.lev3 = this.add.image(500, 250, 'lev3')
-                .setInteractive()
-                .on('pointerdown', () => {
-                    this.scene.start('level3')
-                });
+                this.lev3 = this.add.image(500, 250, 'lev3');
+                this.lev3.setTint(0xff0000);
             }
         }
 
-        
+        class Map2 extends Phaser.Scene {
+            constructor() {
+                super('map2');
+            }
+            preload() {
+                this.load.path = "./assets/";
+                this.load.image('lev1', 'lev1.png')
+                this.load.image('lev2', 'lev2.png')
+                this.load.image('lev3', 'lev3.png')
+            }
+            create() {
+                this.cameras.main.fadeIn(3000);
+                // set up Phaser-provided cursor key input
+                cursors = this.input.keyboard.createCursorKeys();
+
+                // set up Scene switcher
+                this.input.keyboard.on('keydown', (event) => {
+                    //console.log(event);
+                    switch (event.key) {
+                        case '0':
+                            this.scene.start('logoscene');
+                            break;
+                        case '1':
+                            this.scene.start('cred');
+                            break;
+                        case '2':
+                            this.scene.start('title');
+                            break;
+                        case '3':
+                            this.scene.start('map');
+                            break;
+                        case '4':
+                            this.scene.start('settings');
+                            break;
+                        case '5':
+                            this.scene.start('pause');
+                            break;
+                        case '6':
+                            this.scene.start('level1');
+                            break;
+                        case '7':
+                            this.scene.start('level2');
+                            break;
+                        case '8':
+                            this.scene.start('level3');
+                            break;
+                        default:
+                            break;
+                    }
+                });
+
+                previousScene = this.scene.key;
+
+                this.cameras.main.setBackgroundColor('#536872');
+                this.textObject0 = this.add.text(
+                    50, //x
+                    50,//y
+                    "map", //text
+                    {
+                        font: "20px Impact",
+                        color: "#FFFFFF",
+                        align: "center"
+                    } //style
+                );
+
+                this.lev1 = this.add.image(100, 250, 'lev1')
+                    .setInteractive()
+                    .on('pointerover', () => this.lev1.setAlpha(0.4))
+                    .on('pointerout', () => this.lev1.setAlpha(1))
+                    .on('pointerdown', () => {
+                        this.scene.start('level1')
+                    });
+
+                //this.lev1.input.on('pointerdown', () => this.scene.start('level2'));
+                this.lev2 = this.add.image(300, 250, 'lev2')
+                    .setInteractive()
+                    .on('pointerover', () => this.lev2.setAlpha(0.4))
+                    .on('pointerout', () => this.lev2.setAlpha(1))
+                    .on('pointerdown', () => {
+                        this.scene.start('level2')
+                    });
+
+                this.lev3 = this.add.image(500, 250, 'lev3');
+                this.lev3.setTint(0xff0000);
+            }
+        }
+
+        class Map extends Phaser.Scene {
+            constructor() {
+                super('map');
+            }
+            preload() {
+                this.load.path = "./assets/";
+                this.load.image('lev1', 'lev1.png')
+                this.load.image('lev2', 'lev2.png')
+                this.load.image('lev3', 'lev3.png')
+            }
+            create() {
+                this.cameras.main.fadeIn(3000);
+                // set up Phaser-provided cursor key input
+                cursors = this.input.keyboard.createCursorKeys();
+
+                // set up Scene switcher
+                this.input.keyboard.on('keydown', (event) => {
+                    //console.log(event);
+                    switch (event.key) {
+                        case '0':
+                            this.scene.start('logoscene');
+                            break;
+                        case '1':
+                            this.scene.start('cred');
+                            break;
+                        case '2':
+                            this.scene.start('title');
+                            break;
+                        case '3':
+                            this.scene.start('map');
+                            break;
+                        case '4':
+                            this.scene.start('settings');
+                            break;
+                        case '5':
+                            this.scene.start('pause');
+                            break;
+                        case '6':
+                            this.scene.start('level1');
+                            break;
+                        case '7':
+                            this.scene.start('level2');
+                            break;
+                        case '8':
+                            this.scene.start('level3');
+                            break;
+                        default:
+                            break;
+                    }
+                });
+
+                previousScene = this.scene.key;
+
+                this.cameras.main.setBackgroundColor('#536872');
+                this.textObject0 = this.add.text(
+                    50, //x
+                    50,//y
+                    "map", //text
+                    {
+                        font: "20px Impact",
+                        color: "#FFFFFF",
+                        align: "center"
+                    } //style
+                );
+
+                this.lev1 = this.add.image(100, 250, 'lev1')
+                    .setInteractive()
+                    .on('pointerover', () => this.lev1.setAlpha(0.4))
+                    .on('pointerout', () => this.lev1.setAlpha(1))
+                    .on('pointerdown', () => {
+                        this.scene.start('level1')
+                    });
+
+                //this.lev1.input.on('pointerdown', () => this.scene.start('level2'));
+                this.lev2 = this.add.image(300, 250, 'lev2')
+                    .setInteractive()
+                    .on('pointerover', () => this.lev2.setAlpha(0.4))
+                    .on('pointerout', () => this.lev2.setAlpha(1))
+                    .on('pointerdown', () => {
+                        this.scene.start('level2')
+                    });
+
+                this.lev3 = this.add.image(500, 250, 'lev3')
+                    .setInteractive()
+                    .on('pointerover', () => this.lev3.setAlpha(0.4))
+                    .on('pointerout', () => this.lev3.setAlpha(1))
+                    .on('pointerdown', () => {
+                        this.scene.start('level3')
+                    });
+            }
+        }
+
+
         class Settings extends Phaser.Scene {
             constructor() {
                 super('settings');
@@ -107,6 +502,45 @@
                 this.load.image('audiooff', 'audio_off.png');
             }
             create() {
+                // set up Phaser-provided cursor key input
+                cursors = this.input.keyboard.createCursorKeys();
+
+                // set up Scene switcher
+                this.input.keyboard.on('keydown', (event) => {
+                    //console.log(event);
+                    switch (event.key) {
+                        case '0':
+                            this.scene.start('logoscene');
+                            break;
+                        case '1':
+                            this.scene.start('cred');
+                            break;
+                        case '2':
+                            this.scene.start('title');
+                            break;
+                        case '3':
+                            this.scene.start('map');
+                            break;
+                        case '4':
+                            this.scene.start('settings');
+                            break;
+                        case '5':
+                            this.scene.start('pause');
+                            break;
+                        case '6':
+                            this.scene.start('level1');
+                            break;
+                        case '7':
+                            this.scene.start('level2');
+                            break;
+                        case '8':
+                            this.scene.start('level3');
+                            break;
+                        default:
+                            break;
+                    }
+                });
+
                 this.cameras.main.setBackgroundColor('#36454f');
                 this.textObject0 = this.add.text(
                     500, //x
@@ -120,24 +554,24 @@
                 );
 
                 this.back = this.add.image(50, 50, 'resume')
-                .setInteractive()
-                .on('pointerdown', () => {
-                    this.scene.start('pause');
-                });
+                    .setInteractive()
+                    .on('pointerdown', () => {
+                        this.scene.start('pause');
+                    });
                 this.back.setFlipX(true);
                 this.back.setScale(.8);
 
                 this.audioon = this.add.image(260, 250, 'audioon')
-                .setInteractive()
-                .on('pointerdown', () => {
-                    /////////////////music on/////////////////
-                });
+                    .setInteractive()
+                    .on('pointerdown', () => {
+                        /////////////////music on/////////////////
+                    });
 
                 this.audiooff = this.add.image(370, 250, 'audiooff')
-                .setInteractive()
-                .on('pointerdown', () => {
-                    ////////////////music off///////////////
-                });
+                    .setInteractive()
+                    .on('pointerdown', () => {
+                        ////////////////music off///////////////
+                    });
             }
         }
 
@@ -153,6 +587,45 @@
                 this.load.image('mapbut', 'mapbut.png');
             }
             create() {
+                // set up Phaser-provided cursor key input
+                cursors = this.input.keyboard.createCursorKeys();
+
+                // set up Scene switcher
+                this.input.keyboard.on('keydown', (event) => {
+                    //console.log(event);
+                    switch (event.key) {
+                        case '0':
+                            this.scene.start('logoscene');
+                            break;
+                        case '1':
+                            this.scene.start('cred');
+                            break;
+                        case '2':
+                            this.scene.start('title');
+                            break;
+                        case '3':
+                            this.scene.start('map');
+                            break;
+                        case '4':
+                            this.scene.start('settings');
+                            break;
+                        case '5':
+                            this.scene.start('pause');
+                            break;
+                        case '6':
+                            this.scene.start('level1');
+                            break;
+                        case '7':
+                            this.scene.start('level2');
+                            break;
+                        case '8':
+                            this.scene.start('level3');
+                            break;
+                        default:
+                            break;
+                    }
+                });
+
                 this.cameras.main.setBackgroundColor('#36454f');
                 this.textObject0 = this.add.text(
                     50, //x
@@ -171,21 +644,21 @@
                 //    this.scene.start(previousScene);
                 //});
                 //this.resume.setScale(.8)
-//
+                //
                 ////////////////////add audio scene///////////////////
                 //this.settings = this.add.image(330, 170, 'settings')
                 //.setInteractive()
                 //.on('pointerdown', () => {
                 //    this.scene.start('settings');
                 //});
-//
+                //
                 //this.quit = this.add.image(250, 260, 'quit')
                 //.setInteractive()
                 //.on('pointerdown', () => {
                 //    this.scene.start('title');
                 //});
                 //this.quit.setScale(.8)
-//
+                //
                 //this.mapbut = this.add.image(300, 350, 'mapbut')
                 //.setInteractive()
                 //.on('pointerdown', () => {
@@ -194,31 +667,31 @@
                 //this.quit.setScale(.8)
 
                 this.resume = this.add.image(600, 40, 'resume')
-                .setInteractive()
-                .on('pointerdown', () => {
-                    this.scene.start(previousScene);
-                });
+                    .setInteractive()
+                    .on('pointerdown', () => {
+                        this.scene.start(previousScene);
+                    });
                 this.resume.setScale(.8)
 
                 //////////////////add audio scene///////////////////
                 this.settings = this.add.image(320, 170, 'settings')
-                .setInteractive()
-                .on('pointerdown', () => {
-                    this.scene.start('settings');
-                });
+                    .setInteractive()
+                    .on('pointerdown', () => {
+                        this.scene.start('settings');
+                    });
 
                 this.quit = this.add.image(320, 260, 'quit')
-                .setInteractive()
-                .on('pointerdown', () => {
-                    this.scene.start('title');
-                });
+                    .setInteractive()
+                    .on('pointerdown', () => {
+                        this.scene.start('title');
+                    });
                 this.quit.setScale(.8)
 
                 this.mapbut = this.add.image(320, 350, 'mapbut')
-                .setInteractive()
-                .on('pointerdown', () => {
-                    this.scene.start('map');
-                });
+                    .setInteractive()
+                    .on('pointerdown', () => {
+                        this.scene.start('map');
+                    });
                 this.quit.setScale(.8)
             }
         }
@@ -232,15 +705,54 @@
                 this.load.image('pause', 'pause.png');
             }
             create() {
+                // set up Phaser-provided cursor key input
+                cursors = this.input.keyboard.createCursorKeys();
+
+                // set up Scene switcher
+                this.input.keyboard.on('keydown', (event) => {
+                    //console.log(event);
+                    switch (event.key) {
+                        case '0':
+                            this.scene.start('logoscene');
+                            break;
+                        case '1':
+                            this.scene.start('cred');
+                            break;
+                        case '2':
+                            this.scene.start('title');
+                            break;
+                        case '3':
+                            this.scene.start('map');
+                            break;
+                        case '4':
+                            this.scene.start('settings');
+                            break;
+                        case '5':
+                            this.scene.start('pause');
+                            break;
+                        case '6':
+                            this.scene.start('level1');
+                            break;
+                        case '7':
+                            this.scene.start('level2');
+                            break;
+                        case '8':
+                            this.scene.start('level3');
+                            break;
+                        default:
+                            break;
+                    }
+                });
+
                 previousScene = this.scene.key;
 
                 this.cameras.main.setBackgroundColor('#1D4625');
 
                 this.pause = this.add.image(570, 50, 'pause')
-                .setInteractive()
-                .on('pointerdown', () => {
-                    this.scene.start('pause')
-                });
+                    .setInteractive()
+                    .on('pointerdown', () => {
+                        this.scene.start('pause')
+                    });
                 this.pause.setScale(.5);
 
 
@@ -254,6 +766,19 @@
                         align: "center"
                     } //style
                 );
+
+                const beatlev = this.add.text(130, 400, 'beat level', { fontSize: '40px', fill: '#fff' });
+                //playText.setDepth(1);
+                beatlev.setInteractive();
+                beatlev.on('pointerover', () => {
+                    beatlev.setStyle({ fill: '#ff0' });
+                });
+                beatlev.on('pointerout', () => {
+                    beatlev.setStyle({ fill: '#fff' });
+                });
+                beatlev.on('pointerdown', () => {
+                    this.scene.start('map2');
+                });
             }
         }
 
@@ -266,11 +791,50 @@
                 this.load.image('pause', 'pause.png');
             }
             create() {
-                this.pause = this.add.image(570, 50, 'pause')
-                .setInteractive()
-                .on('pointerdown', () => {
-                    this.scene.start('pause')
+                // set up Phaser-provided cursor key input
+                cursors = this.input.keyboard.createCursorKeys();
+
+                // set up Scene switcher
+                this.input.keyboard.on('keydown', (event) => {
+                    //console.log(event);
+                    switch (event.key) {
+                        case '0':
+                            this.scene.start('logoscene');
+                            break;
+                        case '1':
+                            this.scene.start('cred');
+                            break;
+                        case '2':
+                            this.scene.start('title');
+                            break;
+                        case '3':
+                            this.scene.start('map');
+                            break;
+                        case '4':
+                            this.scene.start('settings');
+                            break;
+                        case '5':
+                            this.scene.start('pause');
+                            break;
+                        case '6':
+                            this.scene.start('level1');
+                            break;
+                        case '7':
+                            this.scene.start('level2');
+                            break;
+                        case '8':
+                            this.scene.start('level3');
+                            break;
+                        default:
+                            break;
+                    }
                 });
+
+                this.pause = this.add.image(570, 50, 'pause')
+                    .setInteractive()
+                    .on('pointerdown', () => {
+                        this.scene.start('pause')
+                    });
                 this.pause.setScale(.5);
 
                 previousScene = this.scene.key;
@@ -286,6 +850,19 @@
                         align: "center"
                     } //style
                 );
+
+                const beatlev = this.add.text(130, 400, 'beat level', { fontSize: '40px', fill: '#fff' });
+                //playText.setDepth(1);
+                beatlev.setInteractive();
+                beatlev.on('pointerover', () => {
+                    beatlev.setStyle({ fill: '#ff0' });
+                });
+                beatlev.on('pointerout', () => {
+                    beatlev.setStyle({ fill: '#fff' });
+                });
+                beatlev.on('pointerdown', () => {
+                    this.scene.start('map');
+                });
             }
 
             //this.input.on('pointerdown', () => this.scene.start('messagecard'));
@@ -300,11 +877,50 @@
                 this.load.image('pause', 'pause.png');
             }
             create() {
-                this.pause = this.add.image(570, 50, 'pause')
-                .setInteractive()
-                .on('pointerdown', () => {
-                    this.scene.start('pause')
+                // set up Phaser-provided cursor key input
+                cursors = this.input.keyboard.createCursorKeys();
+
+                // set up Scene switcher
+                this.input.keyboard.on('keydown', (event) => {
+                    //console.log(event);
+                    switch (event.key) {
+                        case '0':
+                            this.scene.start('logoscene');
+                            break;
+                        case '1':
+                            this.scene.start('cred');
+                            break;
+                        case '2':
+                            this.scene.start('title');
+                            break;
+                        case '3':
+                            this.scene.start('map');
+                            break;
+                        case '4':
+                            this.scene.start('settings');
+                            break;
+                        case '5':
+                            this.scene.start('pause');
+                            break;
+                        case '6':
+                            this.scene.start('level1');
+                            break;
+                        case '7':
+                            this.scene.start('level2');
+                            break;
+                        case '8':
+                            this.scene.start('level3');
+                            break;
+                        default:
+                            break;
+                    }
                 });
+
+                this.pause = this.add.image(570, 50, 'pause')
+                    .setInteractive()
+                    .on('pointerdown', () => {
+                        this.scene.start('pause')
+                    });
                 this.pause.setScale(.5);
 
 
@@ -326,6 +942,7 @@
         }
 
         var previousScene;
+        let cursors;
 
         new Phaser.Game({
             type: Phaser.AUTO,
@@ -333,7 +950,7 @@
             height: 480,
             //backgroundColor: 0x2a5825,
             //scene: [Title, Map, Pause, Settings, Level1, Level2, Level3],
-            scene: [Title, Map, Pause, Settings, Level1, Level2, Level3],
+            scene: [Logoscene, Cred, Title, Map, Map1, Map2, Pause, Settings, Level1, Level2, Level3],
         });
     </script>
 </body>
