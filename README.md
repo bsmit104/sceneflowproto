@@ -1,8 +1,7 @@
-# sceneflowproto
-
-**Scene types**- title, credits, game levels, menu, map, settings
-**communication** - level unlocking system
-**reachability** -  scene switch case:
+# sceneflowproto  
+**Scene types**- title, credits, game levels, menu, map, settings  
+**communication** - level unlocking system  
+**reachability** -  scene switch case:  
 case '0': logo  
 case '1': cred  
 case '2': title  
